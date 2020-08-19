@@ -15,27 +15,27 @@ class ProductsOverviewScreen extends StatelessWidget {
     ),
     Product(
       id: 'p2',
-      title: 'Trousers',
-      description: 'A nice pair of trousers.',
-      price: 59.99,
+      title: 'Cropped Cardigan',
+      description: 'A comfy cardigan in a pastel color.',
+      price: 12.98,
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
+          'https://d1flfk77wl2xk4.cloudfront.net/Assets/GalleryImage/23/068/L_g0092406823.jpg',
     ),
     Product(
       id: 'p3',
-      title: 'Yellow Scarf',
-      description: 'Warm and cozy - exactly what you need for the winter.',
-      price: 19.99,
+      title: 'White Jeans',
+      description: 'A pair of high-waisted, wide-leg jeans.',
+      price: 20.78,
       imageUrl:
-          'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
+          'https://d1flfk77wl2xk4.cloudfront.net/Assets/GalleryImage/89/454/L_g0100045489.jpg',
     ),
     Product(
       id: 'p4',
-      title: 'A Pan',
-      description: 'Prepare any meal you want.',
-      price: 49.99,
+      title: 'Heart Earrings',
+      description: 'Gold plated earrings handmade in Hawaii.',
+      price: 26.00,
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+          'https://static.wixstatic.com/media/5cdcd9_19f81566d1d240e6ae02a27443409aa6~mv2.jpg/v1/fill/w_500,h_750,al_c,q_85,usm_0.66_1.00_0.01/5cdcd9_19f81566d1d240e6ae02a27443409aa6~mv2.webp',
     ),
   ];
 
