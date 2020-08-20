@@ -28,4 +28,4 @@ class Level2 extends StatelessWidget {
 
 Because of this problem, it is recommended to use a provider widget. The core concept is that the widgets have a listener that listens for changes in the state. 
 
-![](docs/provider.png)
+<image src="docs/provider.png" width=50%>
