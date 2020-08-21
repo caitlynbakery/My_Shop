@@ -59,3 +59,56 @@ class Level3 extends StatelessWidget {
   }
 }
 ```
+
+## ChangeNotifier
+
+For more complex data passing that updates the state you should use the ChangeNotifier class which is built in Flutter. First, add a Data class that extends ChangeNotifier to hold the data.
+
+```dart
+class Data extends ChangeNotifier {
+  String data = 'Some data';
+}
+```
+
+Next, change Provider class to ChangeNotifierProvider that accepts `<Data>` and creates `Data()`.
+
+```dart
+return ChangeNotifierProvider<Data>(
+  create: (context) => Data(),
+  child: MaterialApp()
+)
+```
+
+In order to access the data in Data() class, use `Text(Provider.of<Data>(context).data)`.
+
+```dart
+class Level3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(Provider.of<Data>(context).data);
+  }
+}
+````
+
+I added a method to my Data class called changeString() that updates the data with a new value. The last line calls notifyListeners() which tells all the listeners to update their values!
+
+```dart
+class Data extends ChangeNotifier {
+  String data = 'Some data';
+
+  void changeString(String newString) {
+    data = newString;
+    notifyListeners();
+  }
+}
+```
+
+Next, I changed MyTextField() to call changeString() and passed it a value from it's onChanged method. The important feature is to add `listen: false` which is required for Stateless widgets in the version of provider package I'm using. 
+
+```dart
+ return TextField(
+      onChanged: (newText) {
+        Provider.of<Data>(context, listen: false).changeString(newText);
+      },
+    );
+```
