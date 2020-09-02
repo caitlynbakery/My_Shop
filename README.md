@@ -112,3 +112,29 @@ Next, I changed MyTextField() to call changeString() and passed it a value from 
       },
     );
 ```
+
+# Concept
+This first section of Shop App focused on managing the state and utilizing the Provider widget to update certain parts of the app. We have many screens in this app that pass information to each other using state management.
+
+## Consumer Widget
+I learned that there is a different way to update the state, in place of `Provider.of`. The reason we use the `Consumer` widget is that it only updates the specific widget that it wraps around. In my product_item.dart file, I used the `Consumer` widget to change the favorited status of my products. When using the `Consumer` widget, we can have a stateless widget that takes in the Provider classes from main.dart.
+
+```dart
+class ProductItem extends StatelessWidget {
+ Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
+
+```
+My Consumer widget will only update the Icon button when the favorite status is changed. We use Consumer instead of  setState() because the favorite status is an app-wide state, not local state. 
+```dart
+Consumer<Product>(
+  builder: (ctx, product, _) => IconButton(
+    icon: Icon(
+        product.isFavorite ? Icons.favorite : Icons.favorite_border),
+    onPressed: () {
+      product.toggleFavoriteStatus();
+    },
+```
+
+![](doc/images/product-image.png)
