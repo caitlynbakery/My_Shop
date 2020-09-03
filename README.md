@@ -117,7 +117,7 @@ Next, I changed MyTextField() to call changeString() and passed it a value from 
 This first section of Shop App focused on managing the state and utilizing the Provider widget to update certain parts of the app. We have many screens in this app that pass information to each other using state management.
 
 ## Consumer Widget
-I learned that there is a different way to update the state, in place of `Provider.of`. The reason we use the `Consumer` widget is that it only updates the specific widget that it wraps around. In my product_item.dart file, I used the `Consumer` widget to change the favorited status of my products. When using the `Consumer` widget, we can have a stateless widget that takes in the Provider classes from main.dart.
+I learned that there is a different way to update the state, in place of `Provider.of`. The reason we use the `Consumer` widget is that it only updates the specific widget that it wraps around. The `Consumer` widget calls the individual build method of a widget, while `Provider.of` rebuilds the entire screen. In my product_item.dart file, I used the `Consumer` widget to change the favorited status of my products. When using the `Consumer` widget, we can have a stateless widget that takes in the Provider classes from main.dart.
 
 ```dart
 class ProductItem extends StatelessWidget {
@@ -138,3 +138,18 @@ Consumer<Product>(
 ```
 
 ![](doc/images/product-image.png)
+
+## Stateful Widget
+You use the stateful widget when the state you're dealing with is a local state. Local state resides in only one part of your app. You would use `Provider` widget when the state is an app-wide state and is used in various screens. 
+
+## Lower Level Provider
+You can also create a Provider class at a lower level in your app. For example, in my products_grid.dart, I made a new Provider class for individual products.
+
+```dart
+ return GridView.builder(
+      padding: const EdgeInsets.all(10.0),
+      itemCount: products.length,
+      itemBuilder: (context, index) => ChangeNotifierProvider.value(
+        value: products[index],
+        child: ProductItem()))
+```
