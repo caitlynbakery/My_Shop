@@ -15,8 +15,11 @@ Scaffold.of(context).showSnackBar(SnackBar(
         onPressed: () {
         cart.removeSingleItem(product.id);
         },),));
-````
+```
 
 ![](images/snack-bar.png)
+
+## Form
+We are going to improve the way that we collect the user input using the Form widget. Previously, we used TextEditingControlls to manage the user data. 
 
 [Home](../README.md)
