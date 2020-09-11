@@ -22,4 +22,20 @@ Scaffold.of(context).showSnackBar(SnackBar(
 ## Form
 We are going to improve the way that we collect the user input using the Form widget. Previously, we used TextEditingControlls to manage the user data. 
 
+### GlobalKey
+I used the `GlobalKey<FormState>` to create a new variable that acts as a unique identifier to my form. The `save()` is built into Flutter and calls save on the entire Form widget. 
+
+```dart
+  final _form = GlobalKey<FormState>();
+  void _saveForm() {
+    _form.currentState.save();
+  }
+  ...
+  child: Form(
+          key: _form,)
+```
+[save() Documentation](https://api.flutter.dev/flutter/widgets/FormState/save.html)
+
+[Global Key Documentation](https://flutter.dev/docs/cookbook/forms/validation)
+
 [Home](../README.md)
