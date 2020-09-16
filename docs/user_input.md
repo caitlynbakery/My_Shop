@@ -60,6 +60,10 @@ validator: (value) {
 
 You can check whether the form is valid using a method called validate() on the current state of your form. If the form is not valid then I return nothing.
 
+My _saveForm method is called when I press the save IconButton in my screen. This method checks to see if the product should be updated or created anew. 
+If the _editedProduct id exists, then we know that the user wants to update the product and I call the updateProduct method from products.dart. Otherwise,
+when there isn't an id, then I call addProduct() to create a new product.
+
 ```dart
   void _saveForm() {
     final isValid = _form.currentState.validate();
@@ -67,10 +71,15 @@ You can check whether the form is valid using a method called validate() on the 
       return;
     }
     _form.currentState.save();
-    print(_editedProduct.title);
-    print(_editedProduct.description);
-    print(_editedProduct.price);
-    print(_editedProduct.imageUrl);
+    if (_editedProduct.id != null) {
+      Provider.of<Products>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
+    } else {
+      Provider.of<Products>(context, listen: false)
+          .addProduct((_editedProduct));
+    }
+
+    Navigator.of(context).pop();
   }
 ```
 [Home](../README.md)
