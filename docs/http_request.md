@@ -31,5 +31,15 @@ What is Firebase?
 how to send request...
 
 ## Futures
+There are two different ways to run async code in a Future.
 
-## ERror handling
+1. Await and Async
+2. .then() and catchError()
+
+You should use await when handling http requests and when data is passed around web servers. 
+
+## Error handling
+You can use the try and catch features of Dart to handle sections of code that are more 'prone' to errors. For example, when dealing
+with Http requests there is more oppurtunity for an error because the user could have poor internet connection or input invalid information. 
+
+![error image](images/error.png)

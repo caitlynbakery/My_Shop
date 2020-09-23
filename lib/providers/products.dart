@@ -67,18 +67,19 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> addProduct(Product product) {
-    const url = 'https://flutter-update-4f3cd.firebaseio.com/products.json';
-    return http
-        .post(url,
-            body: json.encode({
-              'title': product.title,
-              'description': product.description,
-              'imageUrl': product.imageUrl,
-              'price': product.price,
-              'isFavorite': product.isFavorite
-            }))
-        .then((response) {
+  Future<void> addProduct(Product product) async {
+    const url = 'https://flutter-update-4f3cd.firebaseio.com/products';
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'isFavorite': product.isFavorite
+        }),
+      );
       print(json.decode(response.body));
       final newProduct = Product(
           title: product.title,
@@ -88,10 +89,10 @@ class Products with ChangeNotifier {
           id: json.decode(response.body)['name']);
       _items.add(newProduct);
       notifyListeners();
-    }).catchError((error) {
+    } catch (error) {
       print(error);
       throw error;
-    });
+    }
   }
 
   void updateProduct(String id, Product newProduct) {
