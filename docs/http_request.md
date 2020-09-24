@@ -24,8 +24,10 @@ connection and data persists across app restarts.
 
 
 ## Web storage with Firebase
-HOw is server related to Firebase and why are we using it?
-What is Firebase?
+
+Firebase acts as a medium between my application and a database. Also, it can be used as a database, web server, authentication, and more. Without Firebase or something similar, the connection between my app and the database is complex and insecure because the app has to hold database credentials(usernmae, password). Additionally, a user could get a hold of the database credentials and change your data. Firebase takes care of these credentials and other properties. 
+
+This structure of using a medium can be applied with other databases such as MongoDB and postgreSQL
 
 ## Send Http Request
 how to send request...
