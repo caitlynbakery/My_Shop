@@ -81,6 +81,9 @@ Future<void> toggleFavoriteStatus() async {
           {'isFavorite': isFavorite},
         ),
       );
+      if (response.statusCode >= 400) {
+        _setFavValue(oldStatus);
+      }
     } catch (error) {
       isFavorite = oldStatus;
       notifyListeners();
@@ -88,3 +91,13 @@ Future<void> toggleFavoriteStatus() async {
     }
   }
 ```
+
+The catch error check only works for `post` and `get`. It doesn't throw an error for `patch`, `put`, and `delete`. For these methods, you need to 
+check if the http status code is greater than 400. 
+
+### Status Codes
+* 100 - Information response
+* 200 - Successful response
+* 300 - Redirection message
+* 400 - Error
+* 500 - Server error
