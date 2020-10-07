@@ -45,3 +45,33 @@ You can use the try and catch features of Dart to handle sections of code that a
 with Http requests there is more oppurtunity for an error because the user could have poor internet connection or input invalid information. 
 
 ![error image](images/error.png)
+
+### Updating "Favorite" Status Optimistically
+Previously, the favorite status wasn't saved when I restarted my app. After implementing a patch request, I was able to update the 'isFavorite' status of a product. 
+
+1. Save the isFavorite status inside of oldStatus in case of an error.
+2. Toggle isFavorite 
+3. Try to save the isFavorite status in Firebase by using the `patch` request from http.
+4. If the request fails, then catch the error and revert isFavorite back to oldStatus. 
+
+```dart
+Future<void> toggleFavoriteStatus() async {
+    final oldStatus = isFavorite;
+
+    isFavorite = !isFavorite;
+    notifyListeners();
+    final url = 'https://flutter-update-4f3cd.firebaseio.com/products/$id.json';
+    try {
+      final response = await http.patch(
+        url,
+        body: json.encode(
+          {'isFavorite': isFavorite},
+        ),
+      );
+    } catch (error) {
+      isFavorite = oldStatus;
+      notifyListeners();
+      print(error);
+    }
+  }
+```
