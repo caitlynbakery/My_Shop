@@ -101,3 +101,12 @@ check if the http status code is greater than 400.
 * 300 - Redirection message
 * 400 - Error
 * 500 - Server error
+
+## Future.delayed
+We call initState because it runs before the build method and we want to fetch the orders before running the build method. We use the Future.delayed function inside of the initState, so that we can send a request to fetch orders. The Future.delayed
+function runs after the state is initialized. 
+
+## Fetch and Set 
+When I fetch my orders from firebase it returns json. In order to use it, I have to decode the response into a Map. I want to display the orders on the screen as a list of orders from firebase. After fetching data from firebase, I assign each item into a list of orders.
+
+I then use the forEach method to loop through my map and builds a list of loadedOrders.
