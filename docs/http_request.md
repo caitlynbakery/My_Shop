@@ -56,8 +56,44 @@ Future<void> addProduct(Product product) async {
 ## Error handling
 You can use the try and catch features of Dart to handle sections of code that are more 'prone' to errors. For example, when dealing
 with Http requests there is more oppurtunity for an error because the user could have poor internet connection or input invalid information. 
+When you catch an error then we can use `showDialog` to show an `AlertDialog()` message. 
 
 ![error image](images/error.png)
+
+```dart
+ try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (error) {
+        await showDialog<Null>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                  title: Text('An Error Occured!'),
+                  content: Text('Something went wrong'),)}
+```
+
+## Loading Spinner
+In the products overview screen, I use the _isLoading variable to check when my app is loading. I first set _isLoading to true when it is initiliazing the state inside of `didChangeDependcies()`. I then use the `.then()` method after the `fetchAndSetProducts()` to set _isLoading to false. If _isLoading is true, then I display a CircularProgressIndicator. Else, I display the ProductsGrid.  
+
+```dart
+void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      Provider.of<Products>(context, listen: false)
+          .fetchAndSetProducts()
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+
+...
+body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ProductsGrid(_showOnlyFavorites),
+```
 
 ### Updating "Favorite" Status Optimistically
 Previously, the favorite status wasn't saved when I restarted my app. After implementing a patch request, I was able to update the `isFavorite` status of a product. 
@@ -110,3 +146,18 @@ function runs after the state is initialized.
 When I fetch my orders from firebase it returns json. In order to use it, I have to decode the response into a Map. I want to display the orders on the screen as a list of orders from firebase. After fetching data from firebase, I assign each item into a list of orders.
 
 I then use the forEach method to loop through my map and builds a list of loadedOrders.
+
+## FutureBuilder
+FutureBuilder determines the current state of a future and can choose what to show when data is loading. Futurebuilder uses `future:` and `builder:` methods. In the `builder:` method we can check the state of the future with `connectionState` and display a loadingSpinner if it's busy. 
+
+```dart
+body: FutureBuilder(
+    future:
+        Provider.of<Orders>(context, listen: false).fetchAndSetOrders(),
+    builder: (ctx, dataSnapshot) {
+      if (dataSnapshot.connectionState == ConnectionState.waiting) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+```
