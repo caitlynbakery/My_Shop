@@ -161,3 +161,22 @@ body: FutureBuilder(
         );
       }
 ```
+
+## Firebase Rules
+My problem was that firebase shuts off access to my database after a certain timeframe. Thus, I lost
+access to my old database for Shop App. My solution was to change the rules to one month from now. 
+
+This is my error:
+```
+ [ERROR:flutter/lib/ui/ui_dart_state.cc(177)] Unhandled Exception: type 'String' is not a subtype of type 'int' of 'index'
+E/flutter (17846): #0      Products.fetchAndSetProducts
+package:flutter_complete_guide/providers/products.dart:94
+E/flutter (17846): <asynchronous suspension>
+```
+
+This is my solution:
+
+![](images/firebase_rules.PNG)
+![](images/firebase_rules2.png)
+
+
