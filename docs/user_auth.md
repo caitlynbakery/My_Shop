@@ -27,3 +27,20 @@ _token = responseData['idToken'];
 The parameters `idToken`, `localId`, and `expiresIn` are found in the [Firebase Auth Documentation](https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password). 
 
 ![auth response image](images/auth_response_payload.png)
+
+### Sending Token Back
+You need to send the token back to identify the user with their information. In order to
+send the token back, we use a question mark `?auth=$authToken` in the url. 
+
+```dart
+final url = 'https://flutter-update-6cafa.firebaseio.com//products.json?auth=$authToken';
+```
+
+You need to send the token from authScreen over into the product.dart file. To do this, we use the [`ChangeNotifierProxyProvider`](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProxyProvider-class.html) class. The ternary operator checks to see whether previousProducts is a new list or not. A new list would mean that previousProducts == null, so we create an empty list. Else, Products() is passed the previousProducts. 
+
+```dart
+ChangeNotifierProxyProvider<Auth, Products>(
+          update: (ctx, auth, previousProducts) => Products(auth.token, previousProducts == null ? [] : previousProducts.items),
+          create: null,
+        ),
+```
