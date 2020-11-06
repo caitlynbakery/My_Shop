@@ -36,7 +36,14 @@ send the token back, we use a question mark `?auth=$authToken` in the url.
 final url = 'https://flutter-update-6cafa.firebaseio.com//products.json?auth=$authToken';
 ```
 
-You need to send the token from authScreen over into the product.dart file. To do this, we use the [`ChangeNotifierProxyProvider`](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProxyProvider-class.html) class. The ternary operator checks to see whether previousProducts is a new list or not. A new list would mean that previousProducts == null, so we create an empty list. Else, Products() is passed the previousProducts. 
+### ChangeNotifierProxyProvider
+
+When do we use the ChangeNotifierProxyProvider?
+
+We use it when ChangeNotifierProvider is passed a value that needs to be updated. For example, 
+if `auth` was updated, then the ChangeNotifierProvider wouldn't have updated accordingly. 
+To solve this problem we use ChangeNotifierProxyProvider because it will update if the
+`auth` updates. 
 
 ```dart
 ChangeNotifierProxyProvider<Auth, Products>(
@@ -44,3 +51,5 @@ ChangeNotifierProxyProvider<Auth, Products>(
           create: null,
         ),
 ```
+
+You need to send the token from authScreen over into the product.dart file. To do this, we use the [`ChangeNotifierProxyProvider`](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProxyProvider-class.html) class. The ternary operator checks to see whether previousProducts is a new list or not. A new list would mean that previousProducts == null, so we create an empty list. Else, Products() is passed the previousProducts. 
