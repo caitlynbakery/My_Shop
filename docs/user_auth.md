@@ -45,6 +45,9 @@ if `auth` was updated, then the ChangeNotifierProvider wouldn't have updated acc
 To solve this problem we use ChangeNotifierProxyProvider because it will update if the
 `auth` updates. 
 
+ 
+
+
 ```dart
 ChangeNotifierProxyProvider<Auth, Products>(
           update: (ctx, auth, previousProducts) => Products(auth.token, previousProducts == null ? [] : previousProducts.items),
@@ -53,3 +56,12 @@ ChangeNotifierProxyProvider<Auth, Products>(
 ```
 
 You need to send the token from authScreen over into the product.dart file. To do this, we use the [`ChangeNotifierProxyProvider`](https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProxyProvider-class.html) class. The ternary operator checks to see whether previousProducts is a new list or not. A new list would mean that previousProducts == null, so we create an empty list. Else, Products() is passed the previousProducts. 
+
+## Attaching "Favorite" Status to specific user
+
+To attach the "favorite" status to a specific user, I used the `userId` in the url to connect my app to Firebase. I also changed the favorite status to be a boolean variable, so that the favorite status is saved as true or false per user.
+
+```dart
+url = 'https://flutter-update-6cafa.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(url);
+```
