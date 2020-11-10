@@ -65,3 +65,19 @@ To attach the "favorite" status to a specific user, I used the `userId` in the u
 url = 'https://flutter-update-6cafa.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
       final favoriteResponse = await http.get(url);
 ```
+
+## Server Side Filtering with Users
+
+I altered the url to include the filtering of `userId` and `creatorid`. I sent more filtering requirements to Firebase when `filterByUser` is equal to true. It is important to filter on the server side because it takes less work by the user application. When I first restart the app, `filterByUser` is set to false, so we see all of the products. Once we navigate to manage products, we only see the user products. 
+
+![](images/firebase_data.PNG)
+
+```dart
+Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url = 'https://flutter-update-6cafa.firebaseio.com/products.json?auth=$authToken&$filterString'; }
+```
+
+![](images/rules_data.png)
+
+We need to set up the rules, so that products accepts creatorId. 
