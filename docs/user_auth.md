@@ -81,3 +81,5 @@ Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
 ![](images/rules_data.png)
 
 We need to set up the rules, so that products accepts creatorId. 
+
+## auto-logout
