@@ -113,7 +113,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
     _heightAnimation = 
     Tween<Size>(begin: Size(double.infinity, 260), 
     end: Size(double.infinity, 320)).animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
-    _heightAnimation.addListener(() => setState((){}));
+    // _heightAnimation.addListener(() => setState((){}));
   }
 
   @override
@@ -201,7 +201,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: Container(
+      child: AnimatedContainer(
         //height: _authMode == AuthMode.Signup ? 320 : 260,
         height: _heightAnimation.value.height,
         constraints:
@@ -282,8 +282,7 @@ class _AuthCardState extends State<AuthCard> with SingleTickerProviderStateMixin
               ],
             ),
           ),
-        ),
-      ),
+        ),)  
     );
   }
 }
