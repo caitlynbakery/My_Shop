@@ -12,6 +12,7 @@ import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
 import './screens/splash_screen.dart';
+import './helpers/custom_route.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,7 +41,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.cyan,
             accentColor: Colors.pink[300],
-            fontFamily: 'Lato'),
+            fontFamily: 'Lato',
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CustomPageTransitionBuilder(),
+              TargetPlatform.iOS : CustomPageTransitionBuilder(),
+            })),
         home: auth.isAuth ? ProductsOverviewScreen() : FutureBuilder(future: auth.tryAutoLogin(), 
         builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == 
         ConnectionState.waiting ? SplashScreen() : AuthScreen(),) ,
