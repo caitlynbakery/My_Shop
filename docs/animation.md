@@ -30,3 +30,52 @@ is useful to replace `setState()` and make it more efficient to animate the scre
         height: _heightAnimation.value.height,
  ))
 ```
+
+## Implicit Animation
+Doesn't require the use of an animation controller and instead relies on the current setting of animated widget  for the starting point. 
+
+
+```dart
+return AnimatedContainer(
+    color: Colors.red,
+    height: size / 2,
+    width: size,
+    duration: Duration(seconds: 1)
+)
+```
+
+Tween animation is a custom implicit animation. 
+
+## Explicit Animation
+These animations require an animation controller. They start
+animating when explicity asked to. You have to manage the lifecycle of the 
+explicit animation inside of a stateful widget. For example, we initilize the 
+controller in `initState()` and dispose of the controller in `dispose()`. 
+
+If the widget repeats forever or if the widget is 'discontinious' or if
+multiple widgets animate together, then you should use an explicit animation.
+
+
+```dart
+var _controller = AnimationController(
+    duration: Duration(seconds: 1),
+    vsync: this,
+)
+
+...
+_controller.forward()
+```
+
+## Hero Animation
+Hero animations animate an image to increase in size and float to a position on 
+the screen. To implement the Hero animation, you wrap an image with the Hero widget. The Hero animation works across 2 different screens.
+
+``dart
+child: Hero(
+    tag: product.id,
+    child: FadeInImage(
+        placeholder: AssetImage('images/placeholder.png'),
+        image: NetworkImage(product.imageUrl)
+)
+)
+```
